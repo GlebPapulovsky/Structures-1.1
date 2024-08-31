@@ -1,5 +1,6 @@
 package ru.netology;
 
+import java.util.Objects;
 import java.util.OptionalInt;
 
 public class Person {
@@ -26,12 +27,19 @@ public class Person {
         this.age = OptionalInt.of(age);
     }
 
+    public PersonBuilder newChildBuilder() {
+        return new PersonBuilder()
+                .setAge(0)
+                .setSurname(this.surname)
+                .setAddress(this.address);
+    };
+
     public boolean hasAge() {
-        return age != null;
+        return Objects.isNull(this.age);
     }
 
     public boolean hasAddress() {
-        return address != null;
+        return Objects.isNull(this.address);
     }
 
     public String getName() {

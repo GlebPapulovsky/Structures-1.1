@@ -1,48 +1,76 @@
 package ru.netology;
 
+import java.util.OptionalInt;
+
 public class Person {
-    private   String name;
-    private   String surName;
-    private int age;
-    private String adres;
+    protected final String name;
+    protected final String surname;
+    protected String address;
+    protected OptionalInt age;
 
-    private boolean hasAge=false;
-    private boolean hasAdres=false;
-
-
-
-
-
-
-
-    //getters
-    public String getSurName(){
-        return this.surName;
+    public Person(String name, String surname, OptionalInt age, String adress) {
+        this.name = name;
+        this.surname = surname;
+        this.age = age;
+        this.address = adress;
     }
 
-    public int getAge() {
-        return age;
+    public Person(String name, String surname) {
+        this.name = name;
+        this.surname = surname;
     }
 
-    public String getAdres() {
-        return adres;
+    public Person(String name, String surname, int age) {
+        this.name = name;
+        this.surname = surname;
+        this.age = OptionalInt.of(age);
     }
-    public String getName(){
+
+    public boolean hasAge() {
+        return age != null;
+    }
+
+    public boolean hasAddress() {
+        return address != null;
+    }
+
+    public String getName() {
         return this.name;
     }
 
-    //
-    public boolean hasAge(){
-        return hasAge;
-    }
-    public void happyBirthday(){
-        this.age++;
+    public String getSurname() {
+        return this.surname;
     }
 
-    public boolean hasAdress(){
-        return this.hasAdres;
+    public OptionalInt getAge() {
+        return this.age;
     }
-    //TEST
 
+    public String getAddress() {
+        return this.address;
+    }
 
+    public void setAddress(String address) {
+        this.address=address;
+    }
+
+    public void happyBirthday() {
+        age = OptionalInt.of(age.getAsInt() + 1);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder=new StringBuilder();
+        stringBuilder.append("name: "+this.name+"\n");
+        stringBuilder.append("surname: "+this.surname+"\n");
+        stringBuilder.append("age: "+this.age.getAsInt()+"\n");
+        stringBuilder.append("address: "+this.address +"\n");
+
+        return stringBuilder.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode() + age.hashCode() + surname.hashCode() + address.hashCode();
+    }
 }
